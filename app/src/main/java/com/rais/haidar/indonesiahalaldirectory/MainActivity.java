@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
    RecyclerView rcViewListKategori;
     CustomAdapter adapter;
+    List<SemuaKategoriItem> id_kategori;
 
 
     @Override
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseListKategori> call, Response<ResponseListKategori> response) {
                 List<SemuaKategoriItem> isiListKategori = response.body().getSemuaKategori();
+
                 adapter = new CustomAdapter(MainActivity.this, isiListKategori);
 
                 rcViewListKategori.setLayoutManager(new LinearLayoutManager(MainActivity.this));
@@ -75,6 +77,14 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(MyViewHolder holder, int position) {
             holder.txtNamaKategori.setText(isiListKategori.get(position).getNama());
+            holder.idKategori.setText(isiListKategori.get(position).getKategoriId());
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
         }
 
         @Override
@@ -84,10 +94,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView txtNamaKategori;
+        TextView txtNamaKategori,idKategori;
         public MyViewHolder(View itemView) {
             super(itemView);
             txtNamaKategori = itemView.findViewById(R.id.txt_namakategori);
+            idKategori = itemView.findViewById(R.id.txt_idkategori);
         }
     }
 }
